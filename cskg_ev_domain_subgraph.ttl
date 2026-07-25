@@ -1,0 +1,9 @@
+@prefix cskg: <https://w3id.org/def/cleets/external/cskg/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+cskg:dataset a dcat:Dataset ;
+    dcterms:license <https://creativecommons.org/licenses/by-sa/4.0/> ;
+    dcterms:source <https://doi.org/10.5281/zenodo.4331372> ;
+    dcterms:title "CSKG EV-domain subgraph"@en .
+

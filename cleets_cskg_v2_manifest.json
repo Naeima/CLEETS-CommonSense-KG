@@ -1,0 +1,30 @@
+{
+  "pipeline_version": "2.0",
+  "input_cleets_file": "cleets_ev_adoption_knowledge_graph.ttl",
+  "input_cleets_triples": 916595,
+  "cskg_url": "https://zenodo.org/record/4331372/files/cskg.tsv.gz",
+  "csv_field_size_limit": 9223372036854775807,
+  "maximum_matched_edges": 25000,
+  "matched_edges": 0,
+  "output_files": [
+    "cskg_ev_domain_subgraph.tsv",
+    "cskg_ev_domain_subgraph.ttl",
+    "cleets_cskg_alignment.ttl",
+    "cleets_commonsense_ontology.ttl",
+    "cleets_shacl_rules.ttl",
+    "cleets_commonsense_inferences.ttl",
+    "cleets_cskg_enriched.ttl",
+    "cleets_graphrag_documents.jsonl"
+  ],
+  "component_counts": {
+    "CLEETS observation KG": 916595,
+    "Filtered CSKG edges": 0,
+    "CSKG RDF subgraph": 4,
+    "Alignment graph": 30,
+    "Commonsense ontology": 241,
+    "SHACL rules": 23,
+    "Inference graph": 0,
+    "Final enriched graph": 916893,
+    "GraphRAG documents": 0
+  }
+}

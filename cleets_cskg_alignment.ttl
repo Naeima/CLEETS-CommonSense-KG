@@ -1,0 +1,51 @@
+@prefix cleets: <https://w3id.org/def/cleets#> .
+@prefix cleetscs: <https://w3id.org/def/cleets/commonsense/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+cleets:Accessibility a owl:NamedIndividual ;
+    rdfs:label "Accessibility"@en .
+
+cleets:Availability a owl:NamedIndividual ;
+    rdfs:label "Availability"@en .
+
+cleets:Battery a owl:NamedIndividual ;
+    rdfs:label "Battery"@en .
+
+cleets:Charging a owl:NamedIndividual ;
+    rdfs:label "Charging"@en .
+
+cleets:ChargingStation a owl:NamedIndividual ;
+    rdfs:label "Charging Station"@en .
+
+cleets:Demand a owl:NamedIndividual ;
+    rdfs:label "Demand"@en .
+
+cleets:ElectricVehicle a owl:NamedIndividual ;
+    rdfs:label "Electric Vehicle"@en .
+
+cleets:Electricity a owl:NamedIndividual ;
+    rdfs:label "Electricity"@en .
+
+cleets:IncomeConcept a owl:NamedIndividual ;
+    rdfs:label "Income Concept"@en .
+
+cleets:Infrastructure a owl:NamedIndividual ;
+    rdfs:label "Infrastructure"@en .
+
+cleets:PopulationConcept a owl:NamedIndividual ;
+    rdfs:label "Population Concept"@en .
+
+cleets:Road a owl:NamedIndividual ;
+    rdfs:label "Road"@en .
+
+cleets:Transportation a owl:NamedIndividual ;
+    rdfs:label "Transportation"@en .
+
+cleets:Vehicle a owl:NamedIndividual ;
+    rdfs:label "Vehicle"@en .
+
+cleetscs:alignment a owl:Ontology ;
+    dcterms:title "CLEETS-CSKG alignment layer"@en .
+

@@ -1,0 +1,76 @@
+@prefix cleets: <https://w3id.org/def/cleets#> .
+@prefix cleetsrule: <https://w3id.org/def/cleets/rule/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+cleetsrule:ChargingUndersupplyRule a cleets:Rule ;
+    rdfs:label "Charging undersupply rule"@en .
+
+cleetsrule:ChargingUndersupplyShape a sh:NodeShape ;
+    sh:rule [ a sh:SPARQLRule ;
+            sh:construct """
+ PREFIX cleets: <https://w3id.org/def/cleets#>
+ PREFIX cleetsrule: <https://w3id.org/def/cleets/rule/>
+ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ CONSTRUCT {
+   $this cleets:hasChargingProvisionState cleets:ChargingUndersupply ;
+         cleets:hasInference ?i .
+   ?i a cleets:CommonsenseInference ;
+      cleets:inferenceConclusion cleets:ChargingUndersupply ;
+      cleets:generatedByRule cleetsrule:ChargingUndersupplyRule ;
+      cleets:basedOn ?ko, ?co ;
+      cleets:confidenceValue "0.80"^^xsd:decimal ;
+      cleets:justification "EV keepership per charger exceeds the prototype threshold." .
+ } WHERE {
+   ?ko a cleets:EVKeepershipObservation ; cleets:forLAD $this ; cleets:forTime ?t ; cleets:keepershipValue ?k .
+   ?co a cleets:EVChargerCountObservation ; cleets:forLAD $this ; cleets:forTime ?t ; cleets:chargerCountValue ?c .
+   FILTER(xsd:decimal(?c) > 0 && (xsd:decimal(?k)/xsd:decimal(?c)) > 20.0)
+   BIND(IRI(CONCAT("https://w3id.org/def/cleets/inference/charging-undersupply/", SHA256(CONCAT(STR($this),STR(?t),STR(?ko),STR(?co))))) AS ?i)
+ } """ ] ;
+    sh:targetClass cleets:LAD .
+
+cleetsrule:HighEVAdoptionRule a cleets:Rule ;
+    rdfs:label "High EV adoption rule"@en .
+
+cleetsrule:HighEVAdoptionShape a sh:NodeShape ;
+    sh:rule [ a sh:SPARQLRule ;
+            sh:construct """
+ PREFIX cleets: <https://w3id.org/def/cleets/>
+ PREFIX cleetsrule: <https://w3id.org/def/cleets/rule/>
+ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ CONSTRUCT {
+   $this cleets:hasAdoptionState cleets:HighEVAdoption ; cleets:hasInference ?i .
+   ?i a cleets:CommonsenseInference ; cleets:inferenceConclusion cleets:HighEVAdoption ;
+      cleets:generatedByRule cleetsrule:HighEVAdoptionRule ; cleets:basedOn ?ko, ?po ;
+      cleets:confidenceValue "0.75"^^xsd:decimal ;
+      cleets:justification "EVs per thousand residents exceed the prototype threshold." .
+ } WHERE {
+   ?ko a cleets:EVKeepershipObservation ; cleets:forLAD $this ; cleets:forTime ?t ; cleets:keepershipValue ?k .
+   ?po a cleets:PopulationObservation ; cleets:forLAD $this ; cleets:forTime ?t ; cleets:populationValue ?p .
+   FILTER(xsd:decimal(?p) > 0 && (xsd:decimal(?k)/xsd:decimal(?p)*1000) > 50.0)
+   BIND(IRI(CONCAT("https://w3id.org/def/cleets/inference/high-adoption/", SHA256(CONCAT(STR($this),STR(?t),STR(?ko),STR(?po))))) AS ?i)
+ } """ ] ;
+    sh:targetClass cleets:LAD .
+
+cleetsrule:HighSocialVulnerabilityRule a cleets:Rule ;
+    rdfs:label "High social vulnerability rule"@en .
+
+cleetsrule:HighSocialVulnerabilityShape a sh:NodeShape ;
+    sh:rule [ a sh:SPARQLRule ;
+            sh:construct """
+ PREFIX cleets: <https://w3id.org/def/cleets/>
+ PREFIX cleetsrule: <https://w3id.org/def/cleets/rule/>
+ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+ CONSTRUCT {
+   $this cleets:hasSocialVulnerabilityState cleets:HighSocialVulnerability ; cleets:hasInference ?i .
+   ?i a cleets:CommonsenseInference ; cleets:inferenceConclusion cleets:HighSocialVulnerability ;
+      cleets:generatedByRule cleetsrule:HighSocialVulnerabilityRule ; cleets:basedOn ?do ;
+      cleets:confidenceValue "0.70"^^xsd:decimal ;
+      cleets:justification "The deprivation decile is within the configured high-vulnerability range." .
+ } WHERE {
+   ?do a cleets:DeprivationObservation ; cleets:forGeographicArea $this ; cleets:deprivationDecile ?d .
+   FILTER(xsd:integer(?d) <= 3)
+   BIND(IRI(CONCAT("https://w3id.org/def/cleets/inference/high-vulnerability/", SHA256(CONCAT(STR($this),STR(?do))))) AS ?i)
+ } """ ] ;
+    sh:targetClass cleets:GeographicArea .
+
